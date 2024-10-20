@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 
 from sklearn.metrics import confusion_matrix
 
+region_dict = {'promoter': 0, 'enhancer': 1, 'geneBody': 2, 'TW': 3, 'CPS': 4, 'divergent': 5, 'untranscribed': 6}
+
 def calculate_performance_stats(data, param_cols):
     """
     Calculate the mean and standard deviation of performance for each unique combination of the given parameters.
