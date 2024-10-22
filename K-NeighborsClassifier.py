@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_excel("DataNew.xlsx")
 print("Initial DataFrame:")
-print(df.head())  
+print(df.head())  # Print the first 6 lines
 print(df.shape)
 
 columns = ['ATACpeakScore', 'K562_POLR2A_ENCSR000BMR', 'K562_POLR2A_ENCSR000EHL', 'K562_POLR2A_ENCSR000FAJ', 'K562_POLR2A_ENCSR388QZF',
@@ -23,10 +23,11 @@ os.makedirs('boxplot_images', exist_ok=True)
 
 # Filter rows by selected column values
 
-filtered_df = df[((df['ATACpeakScore'] > 20) & (df['ATACpeakScore'] > 2000) | (df['Region'] == 'promoter')) |
+filtered_df = df[((df['ATACpeakScore'] > 20) & (df['ATACpeakScore'] < 2000) & (df['Region'] == 'promoter')) |
                  (df['Region'] == 'enhancer') | (df['Region'] == 'geneBody')]
 
 df = filtered_df.copy()
+df.to_excel('output.xlsx', index=False, engine='openpyxl')
 
 
 for i, col in enumerate(columns):
@@ -58,15 +59,15 @@ from sklearn.preprocessing import StandardScaler
 # Initialize the scaler
 scaler = StandardScaler()
 # Scale the selected columns in train and test data
-train_scale = scaler.fit_transform(train_dat[['ATACpeakScore', 'K562_POLR2A_ENCSR000BMR', 'K562_E2F1_ENCSR720HUL', 'K562_H3K4me1_ENCSR000EWC']]) #
-test_scale = scaler.transform(test_dat[['ATACpeakScore', 'K562_POLR2A_ENCSR000BMR', 'K562_E2F1_ENCSR720HUL', 'K562_H3K4me1_ENCSR000EWC']])       #
+train_scale = scaler.fit_transform(train_dat[['K562_H3K4me3_ENCSR000EWA','K562_H3K4me3_ENCSR000AKU','K562_POLR2A_ENCSR000EHL']]) #
+test_scale = scaler.transform(test_dat[['K562_H3K4me3_ENCSR000EWA','K562_H3K4me3_ENCSR000AKU', 'K562_POLR2A_ENCSR000EHL']])       #
 # View the scaled test data
 print(test_scale[:5])
 
 # To scale all datasets, uncomment and run the lines below
 
-train_scale = scaler.fit_transform(train_dat.iloc[:, 5:29])  # Columns 6 to 29 (zero-indexed)
-test_scale = scaler.transform(test_dat.iloc[:, 5:29])   # Columns 6 to 29 (zero-indexed)
+train_scale = scaler.fit_transform(train_dat.iloc[:, 5:27])  # Columns 5 to 27 (zero-indexed)
+test_scale = scaler.transform(test_dat.iloc[:, 5:27])   # Columns 5 to 27 (zero-indexed)
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
@@ -101,6 +102,7 @@ misClassError = np.mean(predictions != test_dat['Region'])
 # Calculate and print the accuracy
 accuracy = 1 - misClassError
 print(f'Accuracy = {accuracy:.4f}')
+
 
 # labels for class
 #labels = ['geneBody', 'untranscribed', 'TW', 'promoter', 'enhancer', 'CPS', 'divergent']
