@@ -11,9 +11,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 
 df = pd.read_excel("DataNew.xlsx")
 print("Initial DataFrame:")
-print(df.head())  # Print the first 6 lines
-print(df.shape)
-
+ 
 columns = ['ATACpeakScore', 'K562_POLR2A_ENCSR000BMR', 'K562_POLR2A_ENCSR000EHL', 'K562_POLR2A_ENCSR000FAJ', 'K562_POLR2A_ENCSR388QZF',
            'K562_POLR2A_ENCSR388QZF', 'K562_POLR2AphosphoS2_ENCSR000EGF', 'K562_POLR2AphosphoS2_ENCSR000EHF',
            'K562_POLR2AphosphoS5_ENCSR000BKR', 'K562_POLR2G_ENCSR283ZRI', 'K562_E2F1_ENCSR720HUL', 'K562_E2F4_ENCSR000EWL',
