@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_excel("DataNew.xlsx")
 print("Initial DataFrame:")
-print(df.head())  # Print the first 6 lines
+print(df.head())  
 print(df.shape)
 
 columns = ['ATACpeakScore', 'K562_POLR2A_ENCSR000BMR', 'K562_POLR2A_ENCSR000EHL', 'K562_POLR2A_ENCSR000FAJ', 'K562_POLR2A_ENCSR388QZF',
